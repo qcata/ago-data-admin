@@ -1,4 +1,5 @@
 import React, { Suspense } from 'react';
+import PrivateRoute from 'routes/PrivateRoute';
 
 // project imports
 import Loader from './Loader';
@@ -8,7 +9,7 @@ import Loader from './Loader';
 const Loadable = (Component) => (props) =>
     (
         <Suspense fallback={<Loader />}>
-            <Component {...props} />
+            <PrivateRoute component={Component} {...props} />
         </Suspense>
     );
 

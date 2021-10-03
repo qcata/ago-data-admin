@@ -14,7 +14,6 @@ export default function user(state = initialState.user, action = {}) {
         case types.UNAUTHORIZED:
             setAuthorizationHeader();
             return {};
-        case types.REGISTER_SUCCESS:
         default:
             return state;
     }
