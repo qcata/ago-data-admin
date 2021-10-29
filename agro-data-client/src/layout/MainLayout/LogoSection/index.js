@@ -12,7 +12,9 @@ import Logo from 'ui-component/Logo';
 
 const LogoSection = () => (
     <ButtonBase disableRipple component={Link} to={config.defaultPath}>
-        <Logo />
+        <div style={{ height: '40px', display: 'flex' }}>
+            <Logo />
+        </div>
     </ButtonBase>
 );
 
