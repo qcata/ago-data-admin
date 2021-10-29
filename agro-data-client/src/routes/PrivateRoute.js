@@ -19,16 +19,12 @@ const PrivateRoute = ({ component: Component, token, ...props }) => {
 };
 
 const mapStateToProps = (state) => ({
-    token: state.user.token,
-    userId: state.user.id,
-    isAdmin: state.user.isAdmin,
-    loginResult: state.user.loginResult
+    token: state.user
 });
 
 PrivateRoute.propTypes = {
     component: PropTypes.any,
-    token: PropTypes.string,
-    userId: PropTypes.number,
+    token: PropTypes.any,
     location: PropTypes.object
 };
 

@@ -1,14 +1,15 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import { connect } from 'react-redux';
+import { login } from '../../../../store/actions/userActions';
+import PropTypes from 'prop-types';
 
 // material-ui
 import { makeStyles } from '@material-ui/styles';
 import {
     Box,
     Button,
-    Checkbox,
     FormControl,
-    FormControlLabel,
     FormHelperText,
     Grid,
     IconButton,
@@ -74,9 +75,9 @@ const useStyles = makeStyles((theme) => ({
 
 const LoginForm = (props, { ...others }) => {
     const classes = useStyles();
+    const navigate = useNavigate();
 
     const scriptedRef = useScriptRef();
-    const [checked, setChecked] = React.useState(true);
 
     const [showPassword, setShowPassword] = React.useState(false);
     const handleClickShowPassword = () => {
@@ -103,8 +104,8 @@ const LoginForm = (props, { ...others }) => {
 
             <Formik
                 initialValues={{
-                    email: 'info@codedthemes.com',
-                    password: '123456',
+                    email: '',
+                    password: '',
                     submit: null
                 }}
                 validationSchema={Yup.object().shape({
@@ -116,6 +117,16 @@ const LoginForm = (props, { ...others }) => {
                         if (scriptedRef.current) {
                             setStatus({ success: true });
                             setSubmitting(false);
+                            props
+                                .login({
+                                    email: values.email,
+                                    password: values.password
+                                })
+                                .then((response) => {
+                                    if (response) {
+                                        navigate('/');
+                                    }
+                                });
                         }
                     } catch (err) {
                         console.error(err);
@@ -189,17 +200,6 @@ const LoginForm = (props, { ...others }) => {
                             )}
                         </FormControl>
                         <Stack direction="row" alignItems="center" justifyContent="space-between" spacing={1}>
-                            <FormControlLabel
-                                control={
-                                    <Checkbox
-                                        checked={checked}
-                                        onChange={(event) => setChecked(event.target.checked)}
-                                        name="checked"
-                                        color="primary"
-                                    />
-                                }
-                                label="Remember me"
-                            />
                             <Typography
                                 variant="subtitle1"
                                 component={Link}
@@ -246,4 +246,8 @@ const LoginForm = (props, { ...others }) => {
     );
 };
 
-export default LoginForm;
+LoginForm.propTypes = {
+    login: PropTypes.func
+};
+
+export default connect(null, { login })(LoginForm);

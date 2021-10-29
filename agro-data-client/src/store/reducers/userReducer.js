@@ -9,7 +9,7 @@ export default function user(state = initialState.user, action = {}) {
             // eslint-disable-next-line no-case-declarations
             const user = action.payload;
             setAuthorizationHeader(user.token);
-            return user;
+            return user.token;
         case types.LOGOUT_SUCCESS:
         case types.UNAUTHORIZED:
             setAuthorizationHeader();

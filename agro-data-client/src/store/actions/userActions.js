@@ -21,6 +21,7 @@ export function login(credentials) {
         try {
             const data = await authApi.login(credentials);
             dispatch(loginSuccess(data));
+            return true;
         } catch (error) {
             dispatch(apiCallError(error));
             throw error;
