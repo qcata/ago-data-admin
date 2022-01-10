@@ -10,6 +10,7 @@ namespace agro_data_api.Data
         {
         }
         public virtual DbSet<User> Users { get; set; }
+        public virtual DbSet<Land> Lands { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

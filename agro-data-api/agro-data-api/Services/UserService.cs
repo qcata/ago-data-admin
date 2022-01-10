@@ -43,6 +43,7 @@ namespace agro_data_api.Services
 
                         response.Token = token;
                         response.LoginResult = LoginResult.Authenticated;
+                        response.UserId = user.Id;
 
                     }
                     else
@@ -58,7 +59,7 @@ namespace agro_data_api.Services
                 }
                 return response;
             }
-            catch (Exception ex)
+            catch
             {
                 return new LoginResponse
                 {

@@ -67,6 +67,7 @@ namespace agro_data_api
             services.AddScoped<ISecurityService, SecurityService>();
             services.AddScoped<ITokenService, TokenService>();
             services.AddScoped<IUserService, UserService>();
+            services.AddScoped<ILandService, LandService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

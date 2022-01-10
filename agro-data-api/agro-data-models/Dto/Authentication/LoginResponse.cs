@@ -6,6 +6,7 @@ namespace agro_data_models.Dto.Authentication
     {
         public LoginResult LoginResult { get; set; }
         public string Token { get; set; }
+        public int UserId { get; set; }
         public string AuthenticationErrorMessage { get; set; }
     }
 }
