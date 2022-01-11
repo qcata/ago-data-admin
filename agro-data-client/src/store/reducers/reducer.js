@@ -4,6 +4,8 @@ import { combineReducers } from 'redux';
 import customizationReducer from './customizationReducer';
 // eslint-disable-next-line import/no-cycle
 import user from './userReducer';
+// eslint-disable-next-line import/no-cycle
+import lands from './landReducer';
 import apiCallsInProgress from './apiStatusReducer';
 
 // ===========================|| COMBINE REDUCER ||=========================== //
@@ -11,6 +13,7 @@ import apiCallsInProgress from './apiStatusReducer';
 const reducer = combineReducers({
     customization: customizationReducer,
     user,
+    lands,
     apiCallsInProgress
 });
 

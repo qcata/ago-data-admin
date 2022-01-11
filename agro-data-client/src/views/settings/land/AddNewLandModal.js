@@ -58,9 +58,9 @@ const AddNewLandModal = (props) => {
             name: e.target.name.value
         };
         props.saveLandTile(props.userId, dto);
+        props.addTileToGrid(dto);
+        handleClose();
         // eslint-disable-next-line no-debugger
-        debugger;
-        console.log(dto);
     };
     const [formState, setFormState] = React.useState({ name: '', coord1: 0, coord2: 0, coord3: 0, coord4: 0 });
 
@@ -143,7 +143,8 @@ AddNewLandModal.propTypes = {
     open: PropTypes.bool,
     userId: PropTypes.number,
     handleClose: PropTypes.func,
-    saveLandTile: PropTypes.func
+    saveLandTile: PropTypes.func,
+    addTileToGrid: PropTypes.func
 };
 
 export default connect(mapStateToProps, { saveLandTile })(AddNewLandModal);

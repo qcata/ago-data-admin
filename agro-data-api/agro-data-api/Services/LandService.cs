@@ -2,7 +2,9 @@
 using agro_data_api.Services.Abstractions;
 using agro_data_models.Dto.Land;
 using agro_data_models.Models;
+using Microsoft.EntityFrameworkCore;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -10,7 +12,7 @@ namespace agro_data_api.Services
 {
     public class LandService : ILandService
     {
-        private IRepository<Land> _landRepository;
+        private readonly IRepository<Land> _landRepository;
 
         public LandService(IRepository<Land> landRepository)
         {
@@ -44,6 +46,11 @@ namespace agro_data_api.Services
             {
                 return false;
             }
+        }
+
+        public async Task<IEnumerable<Land>> GetLands(int userId)
+        {
+            return await _landRepository.Find(l => l.UserId == userId).ToListAsync();
         }
     }
 }

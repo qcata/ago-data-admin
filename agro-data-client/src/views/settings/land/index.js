@@ -1,5 +1,6 @@
 import PropTypes from 'prop-types';
 import React from 'react';
+import { connect } from 'react-redux';
 
 // material-ui
 import { makeStyles } from '@material-ui/styles';
@@ -11,6 +12,8 @@ import TotalIncomeCard from 'ui-component/cards/Skeleton/TotalIncomeCard';
 import AddNewLandModal from './AddNewLandModal';
 // assets
 import { IconGrowth, IconPlus } from '@tabler/icons';
+// redux
+import { getLands } from '../../../store/actions/landActions';
 
 // style constant
 const useStyles = makeStyles((theme) => ({
@@ -60,16 +63,56 @@ const useStyles = makeStyles((theme) => ({
     padding: {
         paddingTop: 0,
         paddingBottom: 0
+    },
+    gridDataRow: {
+        width: '19%'
+    },
+    gridActionRow: {
+        width: '5%',
+        textAlign: 'end'
+    },
+    gridRow: {
+        marginTop: '1em'
     }
 }));
 
-// ===========================|| DASHBOARD - TOTAL INCOME LIGHT CARD ||=========================== //
+const createLandRow = (row, css) => (
+    <Grid container alignItems="center" className={css.gridRow} key={row.id}>
+        <Grid item className={css.gridDataRow}>
+            <Typography color="inherit">{row.name}</Typography>
+        </Grid>
+        <Grid item className={css.gridDataRow}>
+            <Typography color="inherit">{row.coord1}</Typography>
+        </Grid>
+        <Grid item className={css.gridDataRow}>
+            <Typography color="inherit">{row.coord2}</Typography>
+        </Grid>
+        <Grid item className={css.gridDataRow}>
+            <Typography color="inherit">{row.coord3}</Typography>
+        </Grid>
+        <Grid item className={css.gridDataRow}>
+            <Typography color="inherit">{row.coord4}</Typography>
+        </Grid>
+        <Grid item className={css.gridActionRow}>
+            <Typography color="inherit">Delete</Typography>
+        </Grid>
+    </Grid>
+);
 
-const LandSettings = ({ isLoading }) => {
+const LandSettings = ({ isLoading, lands, userId, getLands }) => {
     const classes = useStyles();
     const [open, setOpen] = React.useState(false);
+    const [landsArray, setLandsArray] = React.useState(lands);
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
+
+    React.useEffect(() => {
+        getLands(userId);
+    }, [userId]);
+
+    const addTileToGrid = (dto) => {
+        setLandsArray([...lands, dto]);
+    };
 
     return (
         <>
@@ -113,28 +156,46 @@ const LandSettings = ({ isLoading }) => {
                             <Grid item xs={12}>
                                 <Grid container direction="column">
                                     <Grid item>
-                                        <Grid container alignItems="center" justifyContent="space-between">
-                                            <Grid item>
+                                        <Grid container alignItems="center">
+                                            <Grid item className={classes.gridDataRow}>
                                                 <Typography variant="subtitle1" color="inherit">
-                                                    TTML
+                                                    Land Name
                                                 </Typography>
                                             </Grid>
-                                            <Grid item>
-                                                <Grid container alignItems="center" justifyContent="space-between">
-                                                    <Grid item>
-                                                        <Typography variant="subtitle1" color="inherit">
-                                                            $100.00
-                                                        </Typography>
-                                                    </Grid>
-                                                </Grid>
+                                            <Grid item className={classes.gridDataRow}>
+                                                <Typography variant="subtitle1" color="inherit">
+                                                    Coordinate 1
+                                                </Typography>
+                                            </Grid>
+                                            <Grid item className={classes.gridDataRow}>
+                                                <Typography variant="subtitle1" color="inherit">
+                                                    Coordinate 2
+                                                </Typography>
+                                            </Grid>
+                                            <Grid item className={classes.gridDataRow}>
+                                                <Typography variant="subtitle1" color="inherit">
+                                                    Coordinate 3
+                                                </Typography>
+                                            </Grid>
+                                            <Grid item className={classes.gridDataRow}>
+                                                <Typography variant="subtitle1" color="inherit">
+                                                    Coordinate 4
+                                                </Typography>
+                                            </Grid>
+
+                                            <Grid item className={classes.gridActionRow}>
+                                                <Typography variant="subtitle1" color="inherit">
+                                                    Actions
+                                                </Typography>
                                             </Grid>
                                         </Grid>
                                     </Grid>
+                                    <Grid item>{landsArray.map((la) => createLandRow(la, classes))}</Grid>
                                 </Grid>
                             </Grid>
                         </ListItem>
                     </List>
-                    <AddNewLandModal handleClose={handleClose} open={open} />
+                    <AddNewLandModal handleClose={handleClose} open={open} addTileToGrid={addTileToGrid} />
                 </MainCard>
             )}
         </>
@@ -142,7 +203,15 @@ const LandSettings = ({ isLoading }) => {
 };
 
 LandSettings.propTypes = {
-    isLoading: PropTypes.bool
+    isLoading: PropTypes.bool,
+    userId: PropTypes.number,
+    lands: PropTypes.array,
+    getLands: PropTypes.func
 };
 
-export default LandSettings;
+const mapStateToProps = (state) => ({
+    lands: state.lands,
+    userId: state.user.userId
+});
+
+export default connect(mapStateToProps, { getLands })(LandSettings);

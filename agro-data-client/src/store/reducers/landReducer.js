@@ -1,18 +1,14 @@
 import * as types from '../actions/actionTypes';
-// eslint-disable-next-line import/no-cycle
-import { setAuthorizationHeader } from '../../configs/client';
 import initialState from './initialState';
 
-export default function land(state = initialState.landsInformation, action = {}) {
+export default function lands(state = initialState.lands, action = {}) {
     switch (action.type) {
-        case types.SAVE_LAND_TILE_SUCCESS:
+        case types.GET_LANDS_SUCCESS:
             // eslint-disable-next-line no-case-declarations
             const lands = action.payload;
-            return { ...state, lands };
-        case types.LOGOUT_SUCCESS:
-        case types.UNAUTHORIZED:
-            setAuthorizationHeader();
-            return {};
+            return lands;
+        case types.SAVE_LAND_TILE_SUCCESS:
+            return state;
         default:
             return state;
     }

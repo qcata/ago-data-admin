@@ -1,7 +1,6 @@
 export default {
     user: {},
-    landsInformation: {
-        lands: []
-    },
+    lands: [],
+    crops: [],
     apiCallsInProgress: 0
 };

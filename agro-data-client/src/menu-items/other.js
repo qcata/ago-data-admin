@@ -1,35 +1,25 @@
 // assets
-import { IconBrandChrome, IconHelp, IconSitemap } from '@tabler/icons';
+import { IconBrandChrome, IconHelp, IconSitemap, IconSeeding } from '@tabler/icons';
 
 // constant
 const icons = {
     IconBrandChrome,
     IconHelp,
-    IconSitemap
+    IconSitemap,
+    IconSeeding
 };
-
-// ===========================|| SAMPLE PAGE & DOCUMENTATION MENU ITEMS ||=========================== //
 
 const other = {
     id: 'sample-docs-roadmap',
     type: 'group',
     children: [
         {
-            id: 'sample-page',
-            title: 'Sample Page',
+            id: 'crops',
+            title: 'Crops',
             type: 'item',
-            url: '/sample-page',
-            icon: icons.IconBrandChrome,
+            url: '/crops',
+            icon: icons.IconSeeding,
             breadcrumbs: false
-        },
-        {
-            id: 'documentation',
-            title: 'Documentation',
-            type: 'item',
-            url: 'https://codedthemes.gitbook.io/berry/',
-            icon: icons.IconHelp,
-            external: true,
-            target: true
         }
     ]
 };

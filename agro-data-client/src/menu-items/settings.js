@@ -6,8 +6,6 @@ const icons = {
     IconSettings
 };
 
-// ===========================|| SAMPLE PAGE & DOCUMENTATION MENU ITEMS ||=========================== //
-
 const settings = {
     id: 'settings',
     type: 'group',
